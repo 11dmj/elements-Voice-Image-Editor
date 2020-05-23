@@ -153,7 +153,7 @@ def exit_func():
         if listening==1:
             pass
         else:
-            sys.exit(1)
+            
             root.destroy()
 
 
@@ -169,23 +169,23 @@ def Gui():
     ###############################################   GUI   ######################################################################
     root=tk.Tk()
     
-    root.geometry("1200x800+150+10")
-    root.wm_attributes("-topmost",1)
+    root.geometry("1200x700+150+60")
+    #root.wm_attributes("-topmost",1)
     root.title("Elements Voiced Image Editing")
     root.iconbitmap(r"elements2.0Images1\icons\logofull2_1TB_icon.ico")
     root.overrideredirect(0)
-    topbar= Frame(main_frame,bg="#0d0d0d")
-    topbar.pack(side=TOP,fill=X)
-    close_button= Button(topbar,text="X",bg="blue",fg="black",command=lambda: root.destroy())
-    close_button.pack(side=RIGHT)
+    # topbar= Frame(main_frame,bg="#0d0d0d")
+    # topbar.pack(side=TOP,fill=X)
+    # close_button= Button(topbar,text="X",bg="blue",fg="black",command=lambda: root.destroy())
+    # close_button.pack(side=RIGHT)
     main_frame= Frame(root,bg="#0d0d0d")
     main_frame.pack(fill=BOTH, expand=1)
     chat_value="Welcome to Elements"
     chat(chat_value)
     hello_label=Label(main_frame,bg="#0d0d0d",bd="1",highlightthickness="1",fg="white",text="Welcome to Elements")
     hello_label.pack(side=BOTTOM,fill=X)
-    operation_label=Label(main_frame,text=None,fg="Red")
-    operation_label.pack(side=BOTTOM,fill=X)
+    # operation_label=Label(main_frame,text=None,fg="Red")
+    # operation_label.pack(side=BOTTOM,fill=X)
 
     connection2()
     # splash_thread=threading.Thread(target=splash)
@@ -214,11 +214,11 @@ def Gui():
     def import_options():
         global import_win
         import_win = Toplevel(root)
-        import_win.overrideredirect(1)
-        import_win.wm_attributes("-topmost",1)
+        #import_win.overrideredirect(1)
+        #import_win.wm_attributes("-topmost",1)
         import_win.title("Import image")
         import_win.iconbitmap(r"elements2.0Images1\icons\logofull2_1TB_icon.ico")
-        import_win.geometry("900x500+400+200")
+        import_win.geometry("900x500+290+150")
         # import_win.maxsize(900,500)
         import_win.resizable(FALSE,FALSE)                                                                                          ## Disable resizing
         import_win.config(bg="#1c1c1c")
@@ -310,7 +310,7 @@ def Gui():
                 w_board=h_board
                 h_board=temp
             print (w_board, "x", h_board)
-            imp_det_board_paper_label.config(fg="white",bg="#1f1f1f",text="Paper Size Ratio Comparison\nSelect Paper : " +str(w_board) +" x" +str(h_board) , justify=LEFT)
+            imp_det_board_paper_label.config(fg="white",bg=board_colour,text="Paper Size Ratio Comparison\nSelect Paper : " +str(w_board) +" x" +str(h_board) , justify=LEFT)
             paper_set_canvas.create_rectangle(0, 0, w_board,h_board, fill= board_colour)
 
         # radio buttons for selecting paper 
@@ -379,21 +379,21 @@ def Gui():
             paper_set_canvas = Canvas(board_canvas, bg="#1f1f1f", bd="0", borderwidth = "0", highlightthickness = "0", cursor= "plus")
             paper_set_canvas.place(x="350", y="10", relwidth="0.42", relheight="0.94")
             paper_set_canvas.config(bg="black")
-            A1_R.config(state=ACTIVE)
-            A2_R.config(state=ACTIVE)
-            A3_R.config(state=ACTIVE)
-            A4_R.config(state=ACTIVE)
-            A5_R.config(state=ACTIVE)
-            A6_R.config(state=ACTIVE)
-            A7_R.config(state=ACTIVE)
-            A8_R.config(state=ACTIVE)
-            A9_R.config(state=ACTIVE)
-            A10_R.config(state=ACTIVE)
-            square_R.config(state=ACTIVE)
-            small_sq_R.config(state=ACTIVE)
-            custom_R.config(state=ACTIVE)
-            landscape_R.config(state=ACTIVE)
-            portrate_R.config(state=ACTIVE)
+            A1_R.config(state=DISABLED)
+            A2_R.config(state=DISABLED)
+            A3_R.config(state=DISABLED)
+            A4_R.config(state=DISABLED)
+            A5_R.config(state=DISABLED)
+            A6_R.config(state=DISABLED)
+            A7_R.config(state=DISABLED)
+            A8_R.config(state=DISABLED)
+            A9_R.config(state=DISABLED)
+            A10_R.config(state=DISABLED)
+            square_R.config(state=DISABLED)
+            small_sq_R.config(state=DISABLED)
+            custom_R.config(state=DISABLED)
+            landscape_R.config(state=DISABLED)
+            portrate_R.config(state=DISABLED)
             imp_det_board_orient.config(fg="white")
             imp_det_board_page_colour.config(fg="white")
             get_colour_Box.config(fg="white")
@@ -406,6 +406,8 @@ def Gui():
         def apply_board():
             global current_img
             global original_img
+            global w_board
+            global h_board
             # get board size
             w=  int (w_board)
             h=  int (h_board)
@@ -431,7 +433,7 @@ def Gui():
             import_win.destroy()
 
     # call for import option at begining
-    import_options()
+    #import_options()
 
     #To resize image
     label_width = labelshow.winfo_screenwidth()
@@ -455,6 +457,9 @@ def Gui():
             width_resized = int( width*factor)
             height_resized = int(height*factor)
             return image.resize((width_resized, height_resized),Image.ANTIALIAS)
+
+    left_bottom_frame=Frame(main_frame,bg="#0d0d0d")
+    left_bottom_frame.pack(side=LEFT,pady=550)
 
     def logobtn_clicked():
     
@@ -480,7 +485,7 @@ def Gui():
     img_logo = Image.open(r"elements2.0Images1\icons\elementslogo.png")
     img_logo = img_logo.resize((35,35), Image.ANTIALIAS)
     img_logo1 = ImageTk.PhotoImage(img_logo)
-    button_img_logo = HoverButton(main_frame,  bg = "#0d0d0d", bd="0", image=img_logo1, command= logobtn_clicked)
+    button_img_logo = HoverButton(left_bottom_frame,  bg = "#0d0d0d", bd="0", image=img_logo1, command= logobtn_clicked)
     button_img_logo.place(x="10", y="670", relwidth=".05", relheight=".05")
 
         #import Image funtion
@@ -506,7 +511,7 @@ def Gui():
     img_import = Image.open(r"elements2.0Images1\assets\operationsImages\save.png")
     img_import = img_import.resize((30,30), Image.ANTIALIAS)
     img_import1 = ImageTk.PhotoImage(img_import)
-    button_import = HoverButton(main_frame,  bg = "#0d0d0d", bd="0", image=img_import1, command =import_clicked)
+    button_import = HoverButton(left_bottom_frame,  bg = "#0d0d0d", bd="0", image=img_import1, command =import_clicked)
     button_import.place(x="40", y="705", relwidth=".05", relheight=".05")
 
     #Textbox to get input from the user!!
@@ -521,8 +526,9 @@ def Gui():
         return inputValue
 
     #side toolbar canvas
-    canvastoolbar = Canvas(main_frame, bg ="#0d0d0d", bd="0", borderwidth = "0", highlightthickness = "0" )
-    canvastoolbar.place(x="1065", y="30", relwidth="0.123", relheight="0.755")
+    canvastoolbar = Canvas(main_frame, bg ="#0d0d0d", bd="0", borderwidth = "0", highlightthickness = "0" ,width="150",height="600")
+    #canvastoolbar.place(x="1065", y="30", relwidth="0.123", relheight="0.755")
+    canvastoolbar.pack(side=RIGHT)
 
     #settings Canvas/ button
     def settings_clicked():
@@ -1184,8 +1190,8 @@ def Gui():
     img_play = Image.open(r"elements2.0Images1\assets\operationsImages\play-button.png")
     img_play = img_play.resize((30,30), Image.ANTIALIAS)
     img_play1 = ImageTk.PhotoImage(img_play)
-    button_play = HoverButton(main_frame,  bg = "#0d0d0d", bd="0", image=img_play1, activebackground='#0d0d0d', compound= "left", fg = "silver",activeforeground='white',command= playbtn_clicked)
-    button_play.place(x="1062", y="700", relwidth=".065", relheight=".05")
+    button_play = HoverButton(canvastoolbar,  bg = "#0d0d0d", bd="0", image=img_play1, activebackground='#0d0d0d', compound= "left", fg = "silver",activeforeground='white',command= playbtn_clicked)
+    button_play.place(x="1062", y="650", relwidth=".065", relheight=".05")
 
     import_label=Label(canvas1,fg="white",bg="black",text=None)
     import_label.place(x="460",y="270")
@@ -1460,24 +1466,18 @@ def Gui():
     img_save = Image.open(r"elements2.0Images1\assets\operationsImages\save.png")
     img_save = img_save.resize((30,30), Image.ANTIALIAS)
     img_save1 = ImageTk.PhotoImage(img_save)
-    button_save = HoverButton(main_frame,  bg = "#0d0d0d", bd="0", image=img_save1, command = save())
+    button_save = HoverButton(left_bottom_frame,  bg = "#0d0d0d", bd="0", image=img_save1, command = save())
     button_save.place(x="10", y="740", relwidth=".05", relheight=".05")
 
 
 
-    # closing Confirmation
-    def on_closing():
-        if messagebox.askokcancel("Quit", "Do you want to Stop Editing?"):
-            root.destroy()
 
-    #clossing protocol
-        root.protocol("WM_DELETE_WINDOW", on_closing)
 
     #### Do all gui elements codes here. Editing Functions are seperately coded outside of this function like other functions 
     ##################################################################################################################################
     
     
-    time.sleep(5)##when time.sleep called the main thread executing till the sleep function stops for 3 secs and listen thread is called
+    time.sleep(1)##when time.sleep called the main thread executing till the sleep function stops for 3 secs and listen thread is called
     # chat_value="Welcome to elements...."  ###this say welcome by calling the chat() function below
     #                                     ###global chat_value is passed as parameter
     
@@ -1487,7 +1487,13 @@ def Gui():
     
     root.mainloop() ###mainloop is executing infinitely
 
+# closing Confirmation
+def on_closing():
+    if messagebox.askokcancel("Quit", "Do you want to Stop Editing?"):
+        root.destroy()
 
+#clossing protocol
+    root.protocol("WM_DELETE_WINDOW", on_closing)
 
 def chat(chat_value):   
     engine.say(chat_value)
@@ -1500,7 +1506,7 @@ def listenit(): ##This function is called in the thread.
     global listening
     listening=1   
     while listening:  ##this means when there is a value in the listening variable      
-        time.sleep(2)
+        #time.sleep(2)
         try:
             
             chat_value="recognizer is active......I am Listening...."
@@ -1532,7 +1538,7 @@ def listenit(): ##This function is called in the thread.
             hello_label.config(text="input to queue")
             # chat_value="input to queue"
             # chat(chat_value)
-            time.sleep(2) ##here listening is stopped for 2 seconds and so execution switch back to main thread, then 2 sec is over returns
+            time.sleep(0.8) ##here listening is stopped for 2 seconds and so execution switch back to main thread, then 2 sec is over returns
                             ##to print("Slept for 2 secs")
             print("slept for 2 sec....")
             do_func_thread=threading.Thread(target=do_func(),args=(q,))
@@ -1555,169 +1561,171 @@ def listenit(): ##This function is called in the thread.
             chat(chat_value)
 def do_func():
     global listening
-    global chat_value
-    global root
+    #global chat_value
+    #global root
     global operation_label
 
     
     keywords=["hi","hai","hello","close","exit","rotate","import","open","intensity","brightness", "crop", "smooth", "smooth more","effect","effects","rotate","backward","embross", "undo","redo","back","next","forward","filter", "contour", "save", "quit","exit", "add text", "contrast","flip", "details", "saturation", "undo", "redo", "warmth"] 
-                
-    if q.qsize():            
-        tokens=word_tokenize(q.get())   ###q.get() is used to pop out what is in queue          
-        for i in tokens:
-            if i in keywords:
-                if i=="hi" or i=="hello" or "hai":
-                    print("Speech Recognizer is Listening......")
-                    operation_label.config(text=f"Hi I am root.......Welcome to Elements ....")
-                    chat_value=f"Hi I am root.....Welcome to Elements........."
-                    chat(chat_value)
-                elif i=="close" or i=="exit": ###Take good care about the time.sleep since we should ajdust them to properly execute code properly
-                    #############Here exiting is not working. May be because of threads are not dead or may be listening is not set to listening =0
-                    ####plz try to solve
-                    print("Exiting...")
-                    operation_label.config(text=f"You said {i}...so exiting...")
-                    chat_value=f"You said {i}........I am closing and won't do anymore listening............................."
-                    chat(chat_value)
-                    listening=0
-                    # endApp()
-                    exit_func()
-                    
-                elif i=="rotate":
-                    print("Rotated")
-                    operation_label.config(text=f"You said {i}...so rotated...")
-                    chat_value=f"You said {i}...I am listening for next task........................."
-                    chat(chat_value)
+    tokens=word_tokenize(q.get())   ###q.get() is used to pop out what is in queue           
+                         
+    for i in tokens:
+        if i in keywords:
+            if i=="hi" or i=="hello" or i=="hai":
+                print("Speech Recognizer is Listening......")
+                operation_label.config(text=f"Hi I am root.......Welcome to Elements ....")
+                chat_value=f"Hi I am root.....Welcome to Elements........."
+                chat(chat_value)
+            elif i=="close" or i=="exit": ###Take good care about the time.sleep since we should ajdust them to properly execute code properly
+                #############Here exiting is not working. May be because of threads are not dead or may be listening is not set to listening =0
+                ####plz try to solve
+                print("Exiting...")
+                operation_label.config(text=f"You said {i}...so exiting...")
+                chat_value=f"You said {i}........I am closing and won't do anymore listening....."
+                chat(chat_value)
+                listening=0
+                #endApp()
+                #exit_func()
+                on_closing()
+            elif i=="rotate":
+                print("Rotated")
+                operation_label.config(text=f"You said {i}...so rotated...")
+                chat_value=f"You said {i}...I am listening for next task........................."
+                chat(chat_value)
 
-                
-                # elif i=="brightness" or i=="intensity":
+            
+            # elif i=="brightness" or i=="intensity":
 
-                #     #brightness_clicked()
-                #     print(i)
-                #     #break
-                # elif i=="crop":
-                #     crop_clicked()
-                #     print(i)
-                #     #break
-                # elif i=="smoooth more":
-                #     smooth_more_clicked()
-                #     print(i)
-                #     #break
-                # elif i=="smooth":
-                #     smooth_clicked()
-                #     print(i)
-                #     #break
-                # elif i=="details":
-                #     detail_clicked()
-                #     print(i)
-                #     #break
-                # elif i=="sharpness":
-                #     sharpness_clicked()
-                #     print(i)
-                #     #break
-                # elif i=="contrast":
-                #     contrast_clicked()
-                #     print(i)
-                #     #break
-                # elif i=="flip":
-                #     flip_clicked()
-                #     print(i)
-                #     #break
-                # elif i=="filter" or i== "effects" or i=="effect":
-                #     filter_clicked()
-                #     print(i)
-                #     #break
-                # elif i=="blur":
-                #     blur_clicked()
-                #     print(i)
-                # elif i=="save" or i== "export":
-                #     save()
-                #     Save = i
-                #     print(i)
-                #     #break
-                # elif i=="open" or i== "import":
-                #     import_clicked()
-                #     #Save = i
-                #     print(i)
-                #     #break
-                # elif i=="undo" or i=="back"or i=="backward":
-                #     undo_clicked()
-                #     #Save = i
-                #     print(i)
-                #     #break  
-                # elif i=="redo" or i=="next" or i=="forward":
-                #     redo_clicked()
-                #     #Save = i
-                #     print(i)
-                #     #break   
-                
-                else:
-                    print("Try Again...")
-                    operation_label.config(text=f"You said something...I didn't understand...")
-                    chat_value=f"You said something that I didn't understand...Try again.............................."
-                    chat(chat_value)
+            #     #brightness_clicked()
+            #     print(i)
+            #     #break
+            # elif i=="crop":
+            #     crop_clicked()
+            #     print(i)
+            #     #break
+            # elif i=="smoooth more":
+            #     smooth_more_clicked()
+            #     print(i)
+            #     #break
+            # elif i=="smooth":
+            #     smooth_clicked()
+            #     print(i)
+            #     #break
+            # elif i=="details":
+            #     detail_clicked()
+            #     print(i)
+            #     #break
+            # elif i=="sharpness":
+            #     sharpness_clicked()
+            #     print(i)
+            #     #break
+            # elif i=="contrast":
+            #     contrast_clicked()
+            #     print(i)
+            #     #break
+            # elif i=="flip":
+            #     flip_clicked()
+            #     print(i)
+            #     #break
+            # elif i=="filter" or i== "effects" or i=="effect":
+            #     filter_clicked()
+            #     print(i)
+            #     #break
+            # elif i=="blur":
+            #     blur_clicked()
+            #     print(i)
+            # elif i=="save" or i== "export":
+            #     save()
+            #     Save = i
+            #     print(i)
+            #     #break
+            # elif i=="open" or i== "import":
+            #     import_clicked()
+            #     #Save = i
+            #     print(i)
+            #     #break
+            # elif i=="undo" or i=="back"or i=="backward":
+            #     undo_clicked()
+            #     #Save = i
+            #     print(i)
+            #     #break  
+            # elif i=="redo" or i=="next" or i=="forward":
+            #     redo_clicked()
+            #     #Save = i
+            #     print(i)
+            #     #break   
+            
+            else:
+                print("Try Again...")
+                operation_label.config(text=f"You said something...I didn't understand...")
+                chat_value=f"Not a valid operation...Try again.............................."
+                chat(chat_value)
     
 
 
 def endApp():
-    print("listening is set to 0")
     global listening
     listening=0
+    sys.exit(1)
+    root.destroy()
 
     
 
 if __name__=="__main__":
     import random
     root2=tk.Tk()
-    root2.geometry("800x500+350+160")
+    root2.geometry("800x500+350+175")
     root2.wm_attributes("-topmost",1)
     root2.overrideredirect(1)
-    # splash_screen = Toplevel(root)
-    # splash_screen.wm_attributes("-fullscreen",True)
-    # splash_screen.wm_overrideredirect(1)
+    contentlabel=None
+    def loading_contents():
+        global contentlabel
+        contents=["impoting tkinter/","importing speech recognition module/","importing Pil modules/","Importing sys/","impoting os"]
+        for item in contents:
+            contentlabel.config(text=item)
+            time.sleep(.3)
 
-
-    
     def connection():
-
-        canvasstatus = Canvas(root2, bg ="#0d0d0d", bd="0", borderwidth = "0", highlightthickness = "0" )
-        canvasstatus.pack(side=BOTTOM, fill=X)
+        global contentlabel
+        canvasstatus = Canvas(splash_label, bg ="white", bd="0", borderwidth = "0", highlightthickness = "0" )
+        canvasstatus.grid(sticky=NE)
         #check status
         host='http://google.com'
         try:
             urllib.request.urlopen(host)
             print("connected")
-            connectionLabel=Label(canvasstatus,bg="#0d0d0d",fg="black",text="Connection Established")
-            connectionLabel.pack()
-            closingLabel=Label(canvasstatus,bg="#0d0d0d",fg="black",text="voice enabled")
-            closingLabel.pack()
-            canvasstatus.after(10000, canvasstatus.destroy)
+            connectionLabel1=Label(canvasstatus,fg="black",text="Connection Established...voice enabled!")
+            connectionLabel1.pack()
+            contentlabel=Label(canvasstatus,fg="black",text="",bg="white")
+            contentlabel.pack()
+            
         except:
             print("not_connected")
-            connectionLabel=Label(canvasstatus,bg="#0d0d0d",fg="black",text="NoConnection Err: 404")
-            connectionLabel.pack()
-            closingLabel=Label(canvasstatus,bg="#0d0d0d",fg="black",text="quit to close/ continue without voice")
-            closingLabel.pack()
-            quitButton=Button(canvasstatus,bg="#0d0d0d",fg="black",text="Quit",command=lambda:root2.destroy())
-            quitButton.pack()
-            canvasstatus.after(10000, canvasstatus.destroy)
-    
+            connectionLabel1=Label(canvasstatus,bg="#0d0d0d",fg="black",text="NoConnection Err: 404!...Enable Internet connection or continue without voice")
+            connectionLabel1.pack()
+            contentlabel=Label(canvasstatus,bg="white",fg="black",text="")
+            contentlabel.pack()
+
     random_number = str(random.randint(0, 22))
     splash_logo = Image.open(r"elements2.0Images1\splashscreen/"+ random_number + ".png")
     splash_logo = splash_logo.resize((800,500), Image.ANTIALIAS)
     splash_logo1 = ImageTk.PhotoImage(splash_logo)
-    l1= Label(root2, bg="silver", image=splash_logo1)
-    l1.pack(fill=BOTH,expand=1)
-    l1.photo=splash_logo1
+    splash_label= Label(root2, bg="silver", image=splash_logo1)
+    splash_label.pack(fill=BOTH,expand=1)
+    #splash_label.photo=splash_logo1
     
     root2.after(10000,root2.destroy)
     connection()
-    time.sleep(.5)
-    gui_thread= threading.Thread(target=Gui(),daemon=True)
-    gui_thread.start()
+    import_thread=threading.Thread(target=loading_contents())
+    import_thread.start()
+    time.sleep(.3)
+    
     root2.mainloop()
     #time.sleep(1)
-    
-    
+    gui_thread= threading.Thread(target=Gui())
+    gui_thread.start()
+    #gui_thread.join()
+    #Gui()
     
 
         
