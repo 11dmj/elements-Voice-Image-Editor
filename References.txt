@@ -1,0 +1,25 @@
+############################################### this file contains the refrerences ################################################
+
+
+
+
+canvas.move()
+    https://www.geeksforgeeks.org/python-tkinter-moving-objects-using-canvas-move-method/
+
+keybpard shortchuts
+
+Voice
+    speechrecognition
+
+    pocketsphinx
+
+tkinter
+
+nltk
+
+pillow
+
+threading
+
+
+############################################### this file contains the refrerences ################################################
